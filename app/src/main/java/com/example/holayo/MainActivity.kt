@@ -1,5 +1,7 @@
 package com.example.holayo
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +11,16 @@ data class Perfil(
     val dato: String,
     val apodo: String?
 )
+
+
+
 class MainActivity : AppCompatActivity() {
+
+    override fun onStart() { super.onStart(); Log.d("VIDA", "Main → onStart") }
+    override fun onResume() { super.onResume(); Log.d("VIDA", "Main → onResume") }
+    override fun onPause() { super.onPause(); Log.d("VIDA", "Main → onPause") }
+    override fun onStop() { super.onStop(); Log.d("VIDA", "Main → onStop") }
+    override fun onDestroy() { super.onDestroy(); Log.d("VIDA", "Main → onDestroy") }
     private val perfil = Perfil(
         nombre = "Lucas Estudiante",
         dato = "Estoy cursando Aplicaciones Móviles",
@@ -35,5 +46,16 @@ class MainActivity : AppCompatActivity() {
             else
                 "¡Buenas! Acá $comoLlamarme"
         }
+
+        val btnIrSegunda = findViewById<Button>(R.id.btnIrSegunda)
+        btnIrSegunda.setOnClickListener {
+            val intent = Intent(this, SegundaActivity::class.java)
+            intent.putExtra("nombre", perfil.apodo ?: perfil.nombre)
+            startActivity(intent)
+        }
+
+
+
+
     }
 }
